@@ -14,6 +14,9 @@ const createAcademicDepartment = async (
 ): Promise<AcademicDepartment> => {
   const result = await prisma.academicDepartment.create({
     data,
+    include: {
+      academicFaculty: true,
+    },
   });
 
   return result;
@@ -54,6 +57,9 @@ const getAllAcademicDepartment = async (
 
   const result = await prisma.academicDepartment.findMany({
     where: whereConditions,
+    include: {
+      academicFaculty: true,
+    },
     skip,
     take: limit,
     orderBy:
@@ -78,6 +84,9 @@ const getSingleAcademicDepartment = async (
 ): Promise<AcademicDepartment | null> => {
   const result = await prisma.academicDepartment.findUnique({
     where: { id },
+    include: {
+      academicFaculty: true,
+    },
   });
 
   if (!result) {
@@ -96,6 +105,9 @@ const updateSingleAcademicDepartment = async (
 ): Promise<AcademicDepartment | null> => {
   const isExists = await prisma.academicDepartment.findUnique({
     where: { id },
+    include: {
+      academicFaculty: true,
+    },
   });
 
   if (!isExists) {
@@ -108,6 +120,9 @@ const updateSingleAcademicDepartment = async (
   const result = await prisma.academicDepartment.update({
     where: { id },
     data,
+    include: {
+      academicFaculty: true,
+    },
   });
 
   return result;
@@ -118,6 +133,9 @@ const deleteSingleAcademicDepartment = async (
 ): Promise<AcademicDepartment> => {
   const result = await prisma.academicDepartment.delete({
     where: { id },
+    include: {
+      academicFaculty: true,
+    },
   });
 
   if (!result) {
