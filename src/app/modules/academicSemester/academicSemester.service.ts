@@ -80,7 +80,25 @@ const getAllAcademicSemester = async (
   };
 };
 
+const getSingleAcademicSemester = async (
+  id: string
+): Promise<AcademicSemester | null> => {
+  const result = await prisma.academicSemester.findUnique({
+    where: { id },
+  });
+
+  if (!result) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      "Academic Semester Doesn't Exists"
+    );
+  }
+
+  return result;
+};
+
 export const AcademicSemesterService = {
   createAcademicSemester,
   getAllAcademicSemester,
+  getSingleAcademicSemester,
 };
