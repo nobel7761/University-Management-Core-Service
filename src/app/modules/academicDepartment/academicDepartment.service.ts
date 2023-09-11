@@ -1,35 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AcademicSemester, Prisma } from '@prisma/client';
+import { AcademicDepartment, Prisma } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import prisma from '../../../shared/prisma';
 import { IPaginationOptions } from './../../../interfaces/pagination';
-import {
-  AcademicSemesterSearchAbleFields,
-  academicSemesterTitleCodeMapper,
-} from './academicSemester.constant';
-import { IAcademicSemesterFilterRequest } from './academicSemester.interface';
+import { AcademicDepartmentSearchAbleFields } from './academicDepartment.constants';
+import { IAcademicDepartmentFilterRequest } from './academicDepartment.interfaces';
 
-const createAcademicSemester = async (
-  data: AcademicSemester
-): Promise<AcademicSemester> => {
-  if (academicSemesterTitleCodeMapper[data.title] !== data.code) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid Semester Code');
-  }
-
-  const result = await prisma.academicSemester.create({
+const createAcademicDepartment = async (
+  data: AcademicDepartment
+): Promise<AcademicDepartment> => {
+  const result = await prisma.academicDepartment.create({
     data,
   });
 
   return result;
 };
 
-const getAllAcademicSemester = async (
-  filters: IAcademicSemesterFilterRequest,
+const getAllAcademicDepartment = async (
+  filters: IAcademicDepartmentFilterRequest,
   options: IPaginationOptions
-): Promise<IGenericResponse<AcademicSemester[]>> => {
+): Promise<IGenericResponse<AcademicDepartment[]>> => {
   const { limit, page, skip } = paginationHelpers.calculatePagination(options);
   const { searchTerm, ...filtersData } = filters;
 
@@ -37,7 +30,7 @@ const getAllAcademicSemester = async (
 
   if (searchTerm) {
     andConditions.push({
-      OR: AcademicSemesterSearchAbleFields.map(field => ({
+      OR: AcademicDepartmentSearchAbleFields.map(field => ({
         [field]: {
           contains: searchTerm,
           mode: 'insensitive',
@@ -56,10 +49,10 @@ const getAllAcademicSemester = async (
     });
   }
 
-  const whereConditions: Prisma.AcademicSemesterWhereInput =
+  const whereConditions: Prisma.AcademicDepartmentWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
 
-  const result = await prisma.academicSemester.findMany({
+  const result = await prisma.academicDepartment.findMany({
     where: whereConditions,
     skip,
     take: limit,
@@ -69,7 +62,7 @@ const getAllAcademicSemester = async (
         : { createdAt: 'desc' },
   });
 
-  const total = await prisma.academicSemester.count();
+  const total = await prisma.academicDepartment.count();
   return {
     meta: {
       total,
@@ -80,39 +73,39 @@ const getAllAcademicSemester = async (
   };
 };
 
-const getSingleAcademicSemester = async (
+const getSingleAcademicDepartment = async (
   id: string
-): Promise<AcademicSemester | null> => {
-  const result = await prisma.academicSemester.findUnique({
+): Promise<AcademicDepartment | null> => {
+  const result = await prisma.academicDepartment.findUnique({
     where: { id },
   });
 
   if (!result) {
     throw new ApiError(
       httpStatus.NOT_FOUND,
-      "Academic Semester Doesn't Exists"
+      "Academic Department Doesn't Exists"
     );
   }
 
   return result;
 };
 
-const updateSingleAcademicSemester = async (
-  data: AcademicSemester,
+const updateSingleAcademicDepartment = async (
+  data: AcademicDepartment,
   id: string
-): Promise<AcademicSemester | null> => {
-  const isExists = await prisma.academicSemester.findUnique({
+): Promise<AcademicDepartment | null> => {
+  const isExists = await prisma.academicDepartment.findUnique({
     where: { id },
   });
 
   if (!isExists) {
     throw new ApiError(
       httpStatus.NOT_FOUND,
-      "Academic Semester Doesn't Exists"
+      "Academic Department Doesn't Exists"
     );
   }
 
-  const result = await prisma.academicSemester.update({
+  const result = await prisma.academicDepartment.update({
     where: { id },
     data,
   });
@@ -120,27 +113,27 @@ const updateSingleAcademicSemester = async (
   return result;
 };
 
-const deleteSingleAcademicSemester = async (
+const deleteSingleAcademicDepartment = async (
   id: string
-): Promise<AcademicSemester> => {
-  const result = await prisma.academicSemester.delete({
+): Promise<AcademicDepartment> => {
+  const result = await prisma.academicDepartment.delete({
     where: { id },
   });
 
   if (!result) {
     throw new ApiError(
       httpStatus.NOT_FOUND,
-      "Academic Semester Doesn't Exists"
+      "Academic Department Doesn't Exists"
     );
   }
 
   return result;
 };
 
-export const AcademicSemesterService = {
-  createAcademicSemester,
-  getAllAcademicSemester,
-  getSingleAcademicSemester,
-  updateSingleAcademicSemester,
-  deleteSingleAcademicSemester,
+export const AcademicDepartmentService = {
+  createAcademicDepartment,
+  getAllAcademicDepartment,
+  getSingleAcademicDepartment,
+  updateSingleAcademicDepartment,
+  deleteSingleAcademicDepartment,
 };

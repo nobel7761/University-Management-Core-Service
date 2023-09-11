@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\.33b22e05a0672475a87bc1c101e4eb519b45138a-audit.json",
+    "files": [
+        {
+            "date": 1694441394105,
+            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-11-09-20-success.log",
+            "hash": "f271d388de77339924ba34f87229b6439fe296f35f7c836f4c345c7b39f39e48"
+        },
+        {
+            "date": 1694449914656,
+            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-11-09-22-success.log",
+            "hash": "cd7c114c129fbf4dea85b2fa8576aef3f1a1a14ce25c6156d461e6c2428ae002"
+        }
+    ],
+    "hashType": "sha256"
+}
