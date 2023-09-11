@@ -10,6 +10,17 @@ const createAcademicSemesterZodValidation = z.object({
   }),
 });
 
+const updateAcademicSemesterZodValidation = z.object({
+  body: z.object({
+    year: z.number().optional(),
+    title: z.string().optional(),
+    code: z.string().optional(),
+    startMonth: z.string().optional(),
+    endMonth: z.string().optional(),
+  }),
+});
+
 export const AcademicSemesterValidation = {
   createAcademicSemesterZodValidation,
+  updateAcademicSemesterZodValidation,
 };

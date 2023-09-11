@@ -97,8 +97,50 @@ const getSingleAcademicSemester = async (
   return result;
 };
 
+const updateSingleAcademicSemester = async (
+  data: AcademicSemester,
+  id: string
+): Promise<AcademicSemester | null> => {
+  const isExists = await prisma.academicSemester.findUnique({
+    where: { id },
+  });
+
+  if (!isExists) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      "Academic Semester Doesn't Exists"
+    );
+  }
+
+  const result = await prisma.academicSemester.update({
+    where: { id },
+    data,
+  });
+
+  return result;
+};
+
+const deleteSingleAcademicSemester = async (
+  id: string
+): Promise<AcademicSemester> => {
+  const result = await prisma.academicSemester.delete({
+    where: { id },
+  });
+
+  if (!result) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      "Academic Semester Doesn't Exists"
+    );
+  }
+
+  return result;
+};
+
 export const AcademicSemesterService = {
   createAcademicSemester,
   getAllAcademicSemester,
   getSingleAcademicSemester,
+  updateSingleAcademicSemester,
+  deleteSingleAcademicSemester,
 };
