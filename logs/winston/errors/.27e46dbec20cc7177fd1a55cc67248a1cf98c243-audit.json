@@ -24,6 +24,11 @@
             "date": 1694455904816,
             "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\errors\\phu-2023-12-09-00-error.log",
             "hash": "a8694366e49273b25bb736ee8294d9cc197916044b6e01214973d05569e8b84b"
+        },
+        {
+            "date": 1694460434191,
+            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\errors\\phu-2023-12-09-01-error.log",
+            "hash": "d8cb8a183a946d32137aa7c1b20554582a6da4e354097a018b661bcad942aa9f"
         }
     ],
     "hashType": "sha256"
