@@ -1,2 +1,22 @@
+export const FacultySearchAbleFields = [
+  'firstName',
+  'lastName',
+  'middleName',
+  'email',
+  'contactNo',
+  'facultyId',
+  'designation',
+];
 
-// Define your constants here
+export const FacultyFilterAbleFileds = [
+  'searchTerm',
+  'facultyId',
+  'email',
+  'contactNo',
+  'gender',
+  'bloodGroup',
+  'gender',
+  'designation',
+  'academicFacultyId',
+  'academicDepartmentId',
+];
