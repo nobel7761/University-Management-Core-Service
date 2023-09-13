@@ -1,30 +1,30 @@
 {
-    "keep": {
-        "days": true,
-        "amount": 14
+  "keep": {
+    "days": true,
+    "amount": 14
+  },
+  "auditLog": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\successes\\.88d0c9aa7c5dfda36f3cb1576f42bc1b93d9aee6-audit.json",
+  "files": [
+    {
+      "date": 1694423033967,
+      "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-11-09-15-success.log",
+      "hash": "616474b8f6fb208c703f002acedb8fe11f83ac3dcabb202f1fdbc916169cdd8f"
     },
-    "auditLog": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\successes\\.88d0c9aa7c5dfda36f3cb1576f42bc1b93d9aee6-audit.json",
-    "files": [
-        {
-            "date": 1694423033967,
-            "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-11-09-15-success.log",
-            "hash": "616474b8f6fb208c703f002acedb8fe11f83ac3dcabb202f1fdbc916169cdd8f"
-        },
-        {
-            "date": 1694426450966,
-            "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-11-09-16-success.log",
-            "hash": "966cee09035940148a84f3f7f97cf3a9ed608c1522f132bd674229a04c6c27ba"
-        },
-        {
-            "date": 1694576738755,
-            "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-13-09-09-success.log",
-            "hash": "714c899dd875efce169534d1b432d707f7d81e1efa43027485b31998645dc15c"
-        },
-        {
-            "date": 1694578127995,
-            "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-13-09-10-success.log",
-            "hash": "09c87bce003abf28b2806a3a3918f54464cabf14646271141d34a0a24b343fce"
-        }
-    ],
-    "hashType": "sha256"
+    {
+      "date": 1694426450966,
+      "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-11-09-16-success.log",
+      "hash": "966cee09035940148a84f3f7f97cf3a9ed608c1522f132bd674229a04c6c27ba"
+    },
+    {
+      "date": 1694576738755,
+      "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-13-09-09-success.log",
+      "hash": "714c899dd875efce169534d1b432d707f7d81e1efa43027485b31998645dc15c"
+    },
+    {
+      "date": 1694578127995,
+      "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-13-09-10-success.log",
+      "hash": "09c87bce003abf28b2806a3a3918f54464cabf14646271141d34a0a24b343fce"
+    }
+  ],
+  "hashType": "sha256"
 }
