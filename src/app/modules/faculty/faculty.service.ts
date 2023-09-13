@@ -96,7 +96,7 @@ const getSingleFaculty = async (id: string): Promise<Faculty | null> => {
 };
 
 const updateSingleFaculty = async (
-  data: Faculty,
+  data: Partial<Faculty>,
   id: string
 ): Promise<Faculty | null> => {
   const isExists = await prisma.faculty.findUnique({

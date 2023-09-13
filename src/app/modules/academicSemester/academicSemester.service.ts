@@ -98,7 +98,7 @@ const getSingleAcademicSemester = async (
 };
 
 const updateSingleAcademicSemester = async (
-  data: AcademicSemester,
+  data: Partial<AcademicSemester>,
   id: string
 ): Promise<AcademicSemester | null> => {
   const isExists = await prisma.academicSemester.findUnique({
