@@ -99,7 +99,7 @@ const getSingleStudent = async (id: string): Promise<Student | null> => {
 };
 
 const updateSingleStudent = async (
-  data: Student,
+  data: Partial<Student>,
   id: string
 ): Promise<Student | null> => {
   const isExists = await prisma.student.findUnique({
