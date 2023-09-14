@@ -152,8 +152,8 @@ const getSingleCourse = async (id: string): Promise<Course | null> => {
 };
 
 const updateSingleCourse = async (
-  data: Partial<Course>,
-  id: string
+  id: string,
+  data: Partial<ICourseCreateData>
 ): Promise<Course | null> => {
   const isExists = await prisma.course.findUnique({
     where: { id },
@@ -163,15 +163,94 @@ const updateSingleCourse = async (
     throw new ApiError(httpStatus.NOT_FOUND, "Course Doesn't Exists");
   }
 
-  const result = await prisma.course.update({
-    where: { id },
-    data,
+  const { preRequisiteCourses, ...courseData } = data;
+
+  await prisma.$transaction(async transaction => {
+    const result = await transaction.course.update({
+      where: { id },
+      data: courseData,
+    });
+
+    if (!result) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Unable to update the course!');
+    }
+
+    if (preRequisiteCourses && preRequisiteCourses.length > 0) {
+      //find out which course should be deleted
+      const deletePrerequisite = preRequisiteCourses.filter(
+        course => course.courseId && course.isDeleted
+      );
+
+      //find out which course should be added
+      const newPrerequisite = preRequisiteCourses.filter(
+        course => course.courseId && !course.isDeleted
+      );
+
+      //delete course
+      for (let index = 0; index < deletePrerequisite.length; index++) {
+        await transaction.courseToPrerequisite.deleteMany({
+          where: {
+            AND: [
+              {
+                courseId: id,
+              },
+              {
+                preRequisiteId: deletePrerequisite[index].courseId,
+              },
+            ],
+          },
+        });
+      }
+
+      //create course
+      for (let index = 0; index < newPrerequisite.length; index++) {
+        await transaction.courseToPrerequisite.create({
+          data: {
+            courseId: id,
+            preRequisiteId: deletePrerequisite[index].courseId,
+          },
+        });
+      }
+    }
+
+    return result;
   });
 
-  return result;
+  const responseData = prisma.course.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      preRequisite: {
+        include: {
+          preRequisite: true,
+        },
+      },
+      preRequisiteFor: {
+        include: {
+          course: true,
+        },
+      },
+    },
+  });
+
+  return responseData;
 };
 
 const deleteSingleCourse = async (id: string): Promise<Course> => {
+  await prisma.courseToPrerequisite.deleteMany({
+    where: {
+      OR: [
+        {
+          courseId: id,
+        },
+        {
+          preRequisiteId: id,
+        },
+      ],
+    },
+  });
+
   const result = await prisma.course.delete({
     where: { id },
   });
