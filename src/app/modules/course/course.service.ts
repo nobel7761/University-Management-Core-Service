@@ -7,9 +7,14 @@ import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import prisma from '../../../shared/prisma';
+import { asyncForEach } from '../../../shared/utils';
 import { IPaginationOptions } from './../../../interfaces/pagination';
 import { CourseSearchableFields } from './course.constants';
-import { ICourseCreateData, ICourseFilterRequest } from './course.interfaces';
+import {
+  ICourseCreateData,
+  ICourseFilterRequest,
+  IPrerequisiteCourseRequest,
+} from './course.interfaces';
 
 const createCourse = async (data: ICourseCreateData): Promise<any> => {
   const { preRequisiteCourses, ...courseData } = data;
@@ -24,15 +29,18 @@ const createCourse = async (data: ICourseCreateData): Promise<any> => {
     }
 
     if (preRequisiteCourses && preRequisiteCourses.length > 0) {
-      for (let index = 0; index < preRequisiteCourses.length; index++) {
-        const createPrerequisite =
-          await transaction.courseToPrerequisite.create({
-            data: {
-              courseId: result.id,
-              preRequisiteId: preRequisiteCourses[index].courseId,
-            },
-          });
-      }
+      await asyncForEach(
+        preRequisiteCourses,
+        async (preRequisiteCourse: IPrerequisiteCourseRequest) => {
+          const createPrerequisite =
+            await transaction.courseToPrerequisite.create({
+              data: {
+                courseId: result.id,
+                preRequisiteId: preRequisiteCourse.courseId,
+              },
+            });
+        }
+      );
     }
 
     return result;
@@ -187,30 +195,62 @@ const updateSingleCourse = async (
       );
 
       //delete course
-      for (let index = 0; index < deletePrerequisite.length; index++) {
-        await transaction.courseToPrerequisite.deleteMany({
-          where: {
-            AND: [
-              {
-                courseId: id,
-              },
-              {
-                preRequisiteId: deletePrerequisite[index].courseId,
-              },
-            ],
-          },
-        });
-      }
+      // for (let index = 0; index < deletePrerequisite.length; index++) {
+      //   await transaction.courseToPrerequisite.deleteMany({
+      //     where: {
+      //       AND: [
+      //         {
+      //           courseId: id,
+      //         },
+      //         {
+      //           preRequisiteId: deletePrerequisite[index].courseId,
+      //         },
+      //       ],
+      //     },
+      //   });
+      // }
+
+      //!this will also delete the course! just used a utility function!
+      await asyncForEach(
+        deletePrerequisite,
+        async (deletePrerequisiteCourse: IPrerequisiteCourseRequest) => {
+          await transaction.courseToPrerequisite.deleteMany({
+            where: {
+              AND: [
+                {
+                  courseId: id,
+                },
+                {
+                  preRequisiteId: deletePrerequisiteCourse.courseId,
+                },
+              ],
+            },
+          });
+        }
+      );
 
       //create course
-      for (let index = 0; index < newPrerequisite.length; index++) {
-        await transaction.courseToPrerequisite.create({
-          data: {
-            courseId: id,
-            preRequisiteId: deletePrerequisite[index].courseId,
-          },
-        });
-      }
+      // for (let index = 0; index < newPrerequisite.length; index++) {
+      //   await transaction.courseToPrerequisite.create({
+      //     data: {
+      //       courseId: id,
+      //       preRequisiteId: newPrerequisite[index].courseId,
+      //     },
+      //   });
+      // }
+
+      //!this will also create the course! just used a utility function!
+      await asyncForEach(
+        newPrerequisite,
+        async (newPrerequisiteCourse: IPrerequisiteCourseRequest) => {
+          await transaction.courseToPrerequisite.create({
+            data: {
+              courseId: id,
+              preRequisiteId: newPrerequisiteCourse.courseId,
+            },
+          });
+        }
+      );
     }
 
     return result;
