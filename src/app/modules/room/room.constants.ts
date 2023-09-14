@@ -1,2 +1,8 @@
+export const RoomSearchAbleFields = ['buildingId', 'floor', 'roomNumber'];
 
-// Define your constants here
+export const RoomFilterAbleFileds = [
+  'searchTerm',
+  'buildingId',
+  'floor',
+  'roomNumber',
+];
