@@ -102,7 +102,7 @@ model Faculty{
 
 model Building{
   id String @id @default(uuid())
-  
+  title String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   rooms Room[]

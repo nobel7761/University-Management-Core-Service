@@ -1,30 +1,35 @@
 {
-  "keep": {
-    "days": true,
-    "amount": 14
-  },
-  "auditLog": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\.59273ae84107a1eccfbc76f49843c15c36ea91dc-audit.json",
-  "files": [
-    {
-      "date": 1694423033976,
-      "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-11-09-15-error.log",
-      "hash": "7d15639ec6337b53e64e378daa0b4ef712e34d71fe865c7ea6a542b1b752e301"
+    "keep": {
+        "days": true,
+        "amount": 14
     },
-    {
-      "date": 1694426450973,
-      "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-11-09-16-error.log",
-      "hash": "9342640667e7b32f1223aea00721cf4490cd6067fb8c2171d0ac454f3e42e12d"
-    },
-    {
-      "date": 1694576738777,
-      "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-13-09-09-error.log",
-      "hash": "f5a3265987b766fe53e801903d74e654acac19debd9a9ba602c17f859bfec71d"
-    },
-    {
-      "date": 1694578128012,
-      "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-13-09-10-error.log",
-      "hash": "bc63fb0c69a8e78d923497384af6c4f2f88f8a315319d0c4efafced19f2c724d"
-    }
-  ],
-  "hashType": "sha256"
+    "auditLog": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\.59273ae84107a1eccfbc76f49843c15c36ea91dc-audit.json",
+    "files": [
+        {
+            "date": 1694423033976,
+            "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-11-09-15-error.log",
+            "hash": "7d15639ec6337b53e64e378daa0b4ef712e34d71fe865c7ea6a542b1b752e301"
+        },
+        {
+            "date": 1694426450973,
+            "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-11-09-16-error.log",
+            "hash": "9342640667e7b32f1223aea00721cf4490cd6067fb8c2171d0ac454f3e42e12d"
+        },
+        {
+            "date": 1694576738777,
+            "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-13-09-09-error.log",
+            "hash": "f5a3265987b766fe53e801903d74e654acac19debd9a9ba602c17f859bfec71d"
+        },
+        {
+            "date": 1694578128012,
+            "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-13-09-10-error.log",
+            "hash": "bc63fb0c69a8e78d923497384af6c4f2f88f8a315319d0c4efafced19f2c724d"
+        },
+        {
+            "date": 1694665708755,
+            "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-14-09-10-error.log",
+            "hash": "3506f1bbc6b41010ccec2bf986fef21db6b347817bc6bc10ff96c20512373ed9"
+        }
+    ],
+    "hashType": "sha256"
 }
