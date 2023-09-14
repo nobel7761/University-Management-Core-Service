@@ -29,6 +29,11 @@
             "date": 1694665708755,
             "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-14-09-10-error.log",
             "hash": "3506f1bbc6b41010ccec2bf986fef21db6b347817bc6bc10ff96c20512373ed9"
+        },
+        {
+            "date": 1694667731326,
+            "name": "C:\\Nobel\\L2\\6. sql\\CoreService\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-14-09-11-error.log",
+            "hash": "c5dcc6a1629445df6657c4964181f27df43de726e19427d69229c2d6cddc8b1e"
         }
     ],
     "hashType": "sha256"

@@ -1,2 +1,3 @@
-
-// Define your interfaces here
+export type IRoomFilterRequest = {
+  searchTerm?: string;
+};
