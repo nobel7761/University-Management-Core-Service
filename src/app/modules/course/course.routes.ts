@@ -15,6 +15,7 @@ router.post(
 );
 
 router.get('/', CourseController.getAllCourse);
+router.get('/withFaculties', CourseController.getAllCourseWithFaculty);
 router.get('/:id', CourseController.getSingleCourse);
 router.patch(
   '/:id',
@@ -27,5 +28,20 @@ router.delete(
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   CourseController.deleteSingleCourse
 );
+
+router.post(
+  '/:id/assign-faculties',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  validateRequest(CourseValidation.createAssignFaculties),
+  CourseController.assignCourseFaculty
+);
+
+router.delete(
+  '/:id/remove-faculties',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  CourseController.removeCourseFaculty
+);
+
+router.get('/:id/faculties', CourseController.getSingleCourseWithFaculty);
 
 export const CourseRoutes = router;

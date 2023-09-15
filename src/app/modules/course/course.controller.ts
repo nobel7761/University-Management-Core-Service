@@ -1,4 +1,4 @@
-import { Course } from '@prisma/client';
+import { Course, CourseFaculty } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { paginationFields } from '../../../constants/pagination';
@@ -71,10 +71,74 @@ const deleteSingleCourse = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const assignCourseFaculty = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await CourseService.assignCourseFaculty(
+    id,
+    req.body.faculties
+  );
+
+  sendResponse<CourseFaculty[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Course Faculty Assigned Successfully',
+    data: result,
+  });
+});
+
+const removeCourseFaculty = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await CourseService.removeCourseFaculty(
+    id,
+    req.body.faculties
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Course Faculty Removed Successfully',
+    data: result,
+  });
+});
+
+const getSingleCourseWithFaculty = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const result = await CourseService.getSingleCourseWithFaculty(id);
+
+    sendResponse<CourseFaculty[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Desire Course with Faculty retrieved Successfully',
+      data: result,
+    });
+  }
+);
+
+const getAllCourseWithFaculty = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await CourseService.getAllCourseWithFaculty();
+
+    sendResponse<CourseFaculty[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'All Course with Faculty retrieved Successfully',
+      data: result,
+    });
+  }
+);
+
 export const CourseController = {
   createCourse,
   getAllCourse,
   getSingleCourse,
   updateSingleCourse,
   deleteSingleCourse,
+  assignCourseFaculty,
+  removeCourseFaculty,
+  getSingleCourseWithFaculty,
+  getAllCourseWithFaculty,
 };

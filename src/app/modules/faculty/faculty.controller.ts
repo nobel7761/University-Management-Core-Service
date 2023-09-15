@@ -71,10 +71,48 @@ const deleteSingleFaculty = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const assignCoursesToFaculty = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const result = await FacultyService.assignCoursesToFaculty(
+      id,
+      req.body.courses
+    );
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Courses Assigned Successfully',
+      data: result,
+    });
+  }
+);
+
+const removeCoursesFromFaculty = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const result = await FacultyService.removeCoursesFromFaculty(
+      id,
+      req.body.faculties
+    );
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Courses Removed Successfully',
+      data: result,
+    });
+  }
+);
+
 export const FacultyController = {
   createFaculty,
   getAllFaculty,
   getSingleFaculty,
   updateSingleFaculty,
   deleteSingleFaculty,
+  assignCoursesToFaculty,
+  removeCoursesFromFaculty,
 };

@@ -16,7 +16,14 @@ const updateCourseZodValidation = z.object({
   }),
 });
 
+const createAssignFaculties = z.object({
+  body: z.object({
+    faculties: z.array(z.string({ required_error: 'Faculty Id is required!' })),
+  }),
+});
+
 export const CourseValidation = {
   createCourseZodValidation,
   updateCourseZodValidation,
+  createAssignFaculties,
 };

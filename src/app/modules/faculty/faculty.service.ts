@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Faculty, Prisma } from '@prisma/client';
+import { CourseFaculty, Faculty, Prisma } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
@@ -135,10 +135,51 @@ const deleteSingleFaculty = async (id: string): Promise<Faculty> => {
   return result;
 };
 
+const assignCoursesToFaculty = async (
+  id: string,
+  payload: string[]
+): Promise<CourseFaculty[]> => {
+  console.log(payload);
+  //here we will get a array of string. that is why we are mapping them and taking one faculty id(idOfFaculty) each time.
+  //then we are combining a object like this: {courseId: id, facultyId: idOfFaculty}
+  await prisma.courseFaculty.createMany({
+    data: payload.map(idOfCourses => ({
+      facultyId: id,
+      courseId: idOfCourses,
+    })),
+  });
+
+  const result = await prisma.courseFaculty.findMany({
+    where: {
+      facultyId: id,
+    },
+    include: {
+      course: true,
+    },
+  });
+
+  return result;
+};
+
+const removeCoursesFromFaculty = async (id: string, payload: string[]) => {
+  const result = await prisma.courseFaculty.deleteMany({
+    where: {
+      facultyId: id,
+      courseId: {
+        in: payload,
+      },
+    },
+  });
+
+  return result;
+};
+
 export const FacultyService = {
   createFaculty,
   getAllFaculty,
   getSingleFaculty,
   updateSingleFaculty,
   deleteSingleFaculty,
+  assignCoursesToFaculty,
+  removeCoursesFromFaculty,
 };

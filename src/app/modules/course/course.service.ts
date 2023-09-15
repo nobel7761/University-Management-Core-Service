@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Course, Prisma } from '@prisma/client';
+import { Course, CourseFaculty, Prisma } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
@@ -302,10 +302,85 @@ const deleteSingleCourse = async (id: string): Promise<Course> => {
   return result;
 };
 
+const assignCourseFaculty = async (
+  id: string,
+  data: string[]
+): Promise<CourseFaculty[]> => {
+  //here we will get a array of string. that is why we are mapping them and taking one faculty id(idOfFaculty) each time.
+  //then we are combining a object like this: {courseId: id, facultyId: idOfFaculty}
+  await prisma.courseFaculty.createMany({
+    data: data.map(idOfFaculty => ({
+      courseId: id,
+      facultyId: idOfFaculty,
+    })),
+  });
+
+  const result = await prisma.courseFaculty.findMany({
+    where: {
+      courseId: id,
+    },
+    include: {
+      course: true,
+      faculty: {
+        include: {
+          academicDepartment: true,
+          academicFaculty: true,
+        },
+      },
+    },
+  });
+
+  return result;
+};
+
+const removeCourseFaculty = async (id: string, payload: string[]) => {
+  const result = await prisma.courseFaculty.deleteMany({
+    where: {
+      courseId: id,
+      facultyId: {
+        in: payload,
+      },
+    },
+  });
+
+  return result;
+};
+
+const getSingleCourseWithFaculty = async (
+  id: string
+): Promise<CourseFaculty[]> => {
+  const result = await prisma.courseFaculty.findMany({
+    where: {
+      courseId: id,
+    },
+    include: {
+      course: true,
+      faculty: true,
+    },
+  });
+
+  return result;
+};
+
+const getAllCourseWithFaculty = async (): Promise<CourseFaculty[]> => {
+  const result = await prisma.courseFaculty.findMany({
+    include: {
+      course: true,
+      faculty: true,
+    },
+  });
+
+  return result;
+};
+
 export const CourseService = {
   createCourse,
   getAllCourse,
   getSingleCourse,
   updateSingleCourse,
   deleteSingleCourse,
+  assignCourseFaculty,
+  removeCourseFaculty,
+  getSingleCourseWithFaculty,
+  getAllCourseWithFaculty,
 };
