@@ -84,6 +84,11 @@
             "date": 1694804556854,
             "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-16-09-01-success.log",
             "hash": "b8a372dfb6aac1606b4276398178e42c79996f23588714d619d9fbe5f2644eef"
+        },
+        {
+            "date": 1694813520706,
+            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-16-09-03-success.log",
+            "hash": "9ded7474d33d2916acc15a47f0cf8e83e65d59b4410db7d89535272dfe926d8c"
         }
     ],
     "hashType": "sha256"
