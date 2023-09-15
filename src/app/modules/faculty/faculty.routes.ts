@@ -31,13 +31,14 @@ router.delete(
 router.post(
   '/:id/assign-courses',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
-  validateRequest(FacultyValidation.createAssignCourses),
+  validateRequest(FacultyValidation.assignOrRemoveCourses),
   FacultyController.assignCoursesToFaculty
 );
 
 router.delete(
   '/:id/remove-courses',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  validateRequest(FacultyValidation.assignOrRemoveCourses),
   FacultyController.removeCoursesFromFaculty
 );
 
