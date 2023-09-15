@@ -84,6 +84,16 @@
             "date": 1694804556862,
             "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\errors\\phu-2023-16-09-01-error.log",
             "hash": "ad21012b33ea4cb4d64ce6b82b873abf374e739a414751040f4a93bcdebbe3ae"
+        },
+        {
+            "date": 1694810381586,
+            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\errors\\phu-2023-16-09-02-error.log",
+            "hash": "59f9ff1841b5bd082ec0dfc0a89ebd6e0f11eb53dad23a856634e86edb56dab9"
+        },
+        {
+            "date": 1694813069693,
+            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\errors\\phu-2023-16-09-03-error.log",
+            "hash": "8462869f2796c8402e6c9a8c42a213c8d6351d55dddf915f9754d3079d631ced"
         }
     ],
     "hashType": "sha256"
