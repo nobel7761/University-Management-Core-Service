@@ -1,95 +1,95 @@
 {
-    "keep": {
-        "days": true,
-        "amount": 14
+  "keep": {
+    "days": true,
+    "amount": 14
+  },
+  "auditLog": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\.33b22e05a0672475a87bc1c101e4eb519b45138a-audit.json",
+  "files": [
+    {
+      "date": 1694441394105,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-11-09-20-success.log",
+      "hash": "f271d388de77339924ba34f87229b6439fe296f35f7c836f4c345c7b39f39e48"
     },
-    "auditLog": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\.33b22e05a0672475a87bc1c101e4eb519b45138a-audit.json",
-    "files": [
-        {
-            "date": 1694441394105,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-11-09-20-success.log",
-            "hash": "f271d388de77339924ba34f87229b6439fe296f35f7c836f4c345c7b39f39e48"
-        },
-        {
-            "date": 1694449914656,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-11-09-22-success.log",
-            "hash": "cd7c114c129fbf4dea85b2fa8576aef3f1a1a14ce25c6156d461e6c2428ae002"
-        },
-        {
-            "date": 1694452223342,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-11-09-23-success.log",
-            "hash": "c4ace93c38d63ad7d95aa7199e10cdac1f83d55483d79a71be0020060485de3c"
-        },
-        {
-            "date": 1694455904810,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-12-09-00-success.log",
-            "hash": "e5c8f8bfc9df50e5650be3381be68250c4cf98a1f9880b53d6c0f03f392b8519"
-        },
-        {
-            "date": 1694460434185,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-12-09-01-success.log",
-            "hash": "d2ed3e18e34042ec7483fe3fc47d54ea3bd53dc52d1b08da586dc64bea0514ed"
-        },
-        {
-            "date": 1694462475394,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-12-09-02-success.log",
-            "hash": "d9ce27492fe3a9a4907c58d7416ce3ebcd6b982d1e2565afdd2ea33c537aa358"
-        },
-        {
-            "date": 1694625359260,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-13-09-23-success.log",
-            "hash": "abf77fc60bb5c73e45b12723f5074438f5eddbddbbfddbc819edd3c986a90652"
-        },
-        {
-            "date": 1694719008083,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-01-success.log",
-            "hash": "4afca5dedf6de0ac8976b9feea5c9b25d7eb1a9c9da6115fcc902ac44ef34c65"
-        },
-        {
-            "date": 1694722110070,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-02-success.log",
-            "hash": "a263387640bcf6aa0296ca3e5981ff626b9336341db2b8e052632605164cde4b"
-        },
-        {
-            "date": 1694728504337,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-03-success.log",
-            "hash": "2ef9722513f26d6c0ecfc3baffabf708a79159559b34649d210cb494ff160094"
-        },
-        {
-            "date": 1694728809126,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-04-success.log",
-            "hash": "953eeccf83bfa012a2e7f779b5dae874601facf7e3e302f2cfc0a0b32c2b4e34"
-        },
-        {
-            "date": 1694783592896,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-19-success.log",
-            "hash": "855b90d8942627a565b948c5429cc019df842a906944f40b65dd87055db89bfc"
-        },
-        {
-            "date": 1694786448322,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-20-success.log",
-            "hash": "82b7c1594f7b2a3a4c3fe93fc74a7c308cc950c8c0b44c2879fade1f5e15cc37"
-        },
-        {
-            "date": 1694792585942,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-21-success.log",
-            "hash": "2ec2b756fbd9bb9764cb934b7c799d274869e56f1818528e8e4d7d439c739df5"
-        },
-        {
-            "date": 1694804285148,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-16-09-00-success.log",
-            "hash": "8a96a6bf0b2f58e557c12917af9e679045860033832b2d8718604c32a640d12c"
-        },
-        {
-            "date": 1694804556854,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-16-09-01-success.log",
-            "hash": "b8a372dfb6aac1606b4276398178e42c79996f23588714d619d9fbe5f2644eef"
-        },
-        {
-            "date": 1694813520706,
-            "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-16-09-03-success.log",
-            "hash": "9ded7474d33d2916acc15a47f0cf8e83e65d59b4410db7d89535272dfe926d8c"
-        }
-    ],
-    "hashType": "sha256"
+    {
+      "date": 1694449914656,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-11-09-22-success.log",
+      "hash": "cd7c114c129fbf4dea85b2fa8576aef3f1a1a14ce25c6156d461e6c2428ae002"
+    },
+    {
+      "date": 1694452223342,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-11-09-23-success.log",
+      "hash": "c4ace93c38d63ad7d95aa7199e10cdac1f83d55483d79a71be0020060485de3c"
+    },
+    {
+      "date": 1694455904810,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-12-09-00-success.log",
+      "hash": "e5c8f8bfc9df50e5650be3381be68250c4cf98a1f9880b53d6c0f03f392b8519"
+    },
+    {
+      "date": 1694460434185,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-12-09-01-success.log",
+      "hash": "d2ed3e18e34042ec7483fe3fc47d54ea3bd53dc52d1b08da586dc64bea0514ed"
+    },
+    {
+      "date": 1694462475394,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-12-09-02-success.log",
+      "hash": "d9ce27492fe3a9a4907c58d7416ce3ebcd6b982d1e2565afdd2ea33c537aa358"
+    },
+    {
+      "date": 1694625359260,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-13-09-23-success.log",
+      "hash": "abf77fc60bb5c73e45b12723f5074438f5eddbddbbfddbc819edd3c986a90652"
+    },
+    {
+      "date": 1694719008083,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-01-success.log",
+      "hash": "4afca5dedf6de0ac8976b9feea5c9b25d7eb1a9c9da6115fcc902ac44ef34c65"
+    },
+    {
+      "date": 1694722110070,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-02-success.log",
+      "hash": "a263387640bcf6aa0296ca3e5981ff626b9336341db2b8e052632605164cde4b"
+    },
+    {
+      "date": 1694728504337,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-03-success.log",
+      "hash": "2ef9722513f26d6c0ecfc3baffabf708a79159559b34649d210cb494ff160094"
+    },
+    {
+      "date": 1694728809126,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-04-success.log",
+      "hash": "953eeccf83bfa012a2e7f779b5dae874601facf7e3e302f2cfc0a0b32c2b4e34"
+    },
+    {
+      "date": 1694783592896,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-19-success.log",
+      "hash": "855b90d8942627a565b948c5429cc019df842a906944f40b65dd87055db89bfc"
+    },
+    {
+      "date": 1694786448322,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-20-success.log",
+      "hash": "82b7c1594f7b2a3a4c3fe93fc74a7c308cc950c8c0b44c2879fade1f5e15cc37"
+    },
+    {
+      "date": 1694792585942,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-15-09-21-success.log",
+      "hash": "2ec2b756fbd9bb9764cb934b7c799d274869e56f1818528e8e4d7d439c739df5"
+    },
+    {
+      "date": 1694804285148,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-16-09-00-success.log",
+      "hash": "8a96a6bf0b2f58e557c12917af9e679045860033832b2d8718604c32a640d12c"
+    },
+    {
+      "date": 1694804556854,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-16-09-01-success.log",
+      "hash": "b8a372dfb6aac1606b4276398178e42c79996f23588714d619d9fbe5f2644eef"
+    },
+    {
+      "date": 1694813520706,
+      "name": "E:\\L2\\6. Be a SQL Superstar\\university-management-core-service\\logs\\winston\\successes\\phu-2023-16-09-03-success.log",
+      "hash": "9ded7474d33d2916acc15a47f0cf8e83e65d59b4410db7d89535272dfe926d8c"
+    }
+  ],
+  "hashType": "sha256"
 }
