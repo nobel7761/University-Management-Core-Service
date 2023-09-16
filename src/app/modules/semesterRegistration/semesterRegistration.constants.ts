@@ -1,2 +1,18 @@
+export const SemesterRegistrationFilterAbleFileds = [
+  'searchTerm',
+  'id',
+  'status',
+  'academicSemesterId',
+];
 
-// Define your constants here
+export const SemesterRegistrationSearchAbleFields = [];
+
+export const semesterRegistrationRelationalFields: string[] = [
+  'academicSemesterId',
+];
+
+export const semesterRegistrationRelationalFieldsMapper: {
+  [key: string]: string;
+} = {
+  academicSemesterId: 'academicSemester',
+};

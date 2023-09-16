@@ -7,11 +7,35 @@ import { SemesterRegistrationValidation } from './semesterRegistration.validatio
 
 const router = express.Router();
 
+router.get('/', SemesterRegistrationController.getAllSemesterRegistration);
+
+router.get(
+  '/:id',
+  SemesterRegistrationController.getSingleSemesterRegistration
+);
+
 router.post(
   '/',
-  validateRequest(SemesterRegistrationValidation.create),
+  validateRequest(
+    SemesterRegistrationValidation.createSemesterRegistrationZodValidation
+  ),
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   SemesterRegistrationController.createSemesterRegistration
+);
+
+router.patch(
+  '/:id',
+  validateRequest(
+    SemesterRegistrationValidation.updateSemesterRegistrationZodValidation
+  ),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  SemesterRegistrationController.updateSingleSemesterRegistration
+);
+
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  SemesterRegistrationController.deleteSingleSemesterRegistration
 );
 
 export const SemesterRegistrationRoutes = router;

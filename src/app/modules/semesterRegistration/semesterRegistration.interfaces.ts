@@ -1,2 +1,4 @@
-
-// Define your interfaces here
+export type ISemesterRegistrationFilterRequest = {
+  searchTerm?: string | undefined;
+  academicSemesterId?: string | undefined;
+};

@@ -1,6 +1,7 @@
+import { SemesterRegistrationStatus } from '@prisma/client';
 import { z } from 'zod';
 
-const create = z.object({
+const createSemesterRegistrationZodValidation = z.object({
   body: z.object({
     startDate: z.string({ required_error: 'Start Date is Required' }),
     endDate: z.string({ required_error: 'End Date is Required' }),
@@ -12,6 +13,23 @@ const create = z.object({
   }),
 });
 
+const updateSemesterRegistrationZodValidation = z.object({
+  body: z.object({
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    status: z
+      .enum(
+        [...Object.values(SemesterRegistrationStatus)] as [string, ...string[]],
+        {}
+      )
+      .optional(),
+    minCredit: z.number().optional(),
+    maxCredit: z.number().optional(),
+    academicSemesterId: z.string().optional(),
+  }),
+});
+
 export const SemesterRegistrationValidation = {
-  create,
+  createSemesterRegistrationZodValidation,
+  updateSemesterRegistrationZodValidation,
 };
