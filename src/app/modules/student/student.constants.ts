@@ -5,7 +5,6 @@ export const StudentFilterAbleFileds: string[] = [
   'contactNo',
   'gender',
   'bloodGroup',
-  'gender',
   'academicFacultyId',
   'academicDepartmentId',
   'academicSemesterId',

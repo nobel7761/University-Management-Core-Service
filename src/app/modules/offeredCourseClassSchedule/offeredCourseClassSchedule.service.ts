@@ -47,11 +47,15 @@ const getAllOfferedCourseClassSchedule = async (
     });
   }
 
+  //! as we have to filter out data from another field that is why we have to add the relational field here!
+  // we will only add table name(e.x: room) with the field(e.x: roomId) by which relation is creating!
   if (Object.keys(filtersData).length > 0) {
     andConditions.push({
       AND: Object.keys(filtersData).map(key => {
+        // here we have to declare the fields
         if (offeredCourseClassScheduleRelationalFields.includes(key)) {
           return {
+            // here we have to declare the table with fields where we will filter
             [offeredCourseClassScheduleRelationalFieldsMapper[key]]: {
               id: (filtersData as any)[key],
             },
