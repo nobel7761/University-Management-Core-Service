@@ -208,10 +208,36 @@ const deleteSingleSemesterRegistration = async (
   return result;
 };
 
+const startMyRegistration = async (authUserId: string) => {
+  const studentInfo = await prisma.student.findFirst({
+    where: {
+      studentId: authUserId,
+    },
+  });
+
+  if (!studentInfo)
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'Student Information Not Found!'
+    );
+
+  const semesterRegistrationInfo = await prisma.semesterRegistration.findFirst({
+    where: {
+      status: {
+        in: [
+          SemesterRegistrationStatus.ONGOING,
+          SemesterRegistrationStatus.UPCOMING,
+        ],
+      },
+    },
+  });
+};
+
 export const SemesterRegistrationService = {
   createSemesterRegistration,
   getAllSemesterRegistration,
   getSingleSemesterRegistration,
   updateSingleSemesterRegistration,
   deleteSingleSemesterRegistration,
+  startMyRegistration,
 };

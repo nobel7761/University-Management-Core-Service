@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SemesterRegistration } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
@@ -91,10 +92,25 @@ const deleteSingleSemesterRegistration = catchAsync(
   }
 );
 
+const startMyRegistration = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const result = await SemesterRegistrationService.startMyRegistration(
+    user.userId
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student SemesterRegistration started Successfully',
+    data: result,
+  });
+});
+
 export const SemesterRegistrationController = {
   createSemesterRegistration,
   getAllSemesterRegistration,
   getSingleSemesterRegistration,
   updateSingleSemesterRegistration,
   deleteSingleSemesterRegistration,
+  startMyRegistration,
 };

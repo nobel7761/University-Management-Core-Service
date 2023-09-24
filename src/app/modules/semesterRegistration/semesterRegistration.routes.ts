@@ -14,6 +14,13 @@ router.get(
   SemesterRegistrationController.getSingleSemesterRegistration
 );
 
+//! studentSemesterRegistration
+router.post(
+  '/start-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.startMyRegistration
+);
+
 router.post(
   '/',
   validateRequest(
