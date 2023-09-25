@@ -231,6 +231,35 @@ const startMyRegistration = async (authUserId: string) => {
       },
     },
   });
+
+  if (
+    semesterRegistrationInfo?.status === SemesterRegistrationStatus.UPCOMING
+  ) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'Registration is not started yet!'
+    );
+  }
+
+  const studentRegistration = await prisma.studentSemesterRegistration.create({
+    data: {
+      //! here we are posting data into the relation of a table. check the schema and then you will notice that, we are trying to insert the data using the relation of a table instead of using the id(reference fields).
+
+      // as student and semester registration both information is available so we can follow this approach using connect
+      student: {
+        connect: {
+          id: studentInfo?.id,
+        },
+      },
+      semesterRegistration: {
+        connect: {
+          id: semesterRegistrationInfo?.id,
+        },
+      },
+    },
+  });
+
+  return studentRegistration;
 };
 
 export const SemesterRegistrationService = {
