@@ -3,6 +3,7 @@ import {
   Prisma,
   SemesterRegistration,
   SemesterRegistrationStatus,
+  StudentSemesterRegistration,
 } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
@@ -208,7 +209,12 @@ const deleteSingleSemesterRegistration = async (
   return result;
 };
 
-const startMyRegistration = async (authUserId: string) => {
+const startMyRegistration = async (
+  authUserId: string
+): Promise<{
+  semesterRegistration: SemesterRegistration | null;
+  studentSemesterRegistration: StudentSemesterRegistration | null;
+}> => {
   const studentInfo = await prisma.student.findFirst({
     where: {
       studentId: authUserId,
@@ -241,25 +247,42 @@ const startMyRegistration = async (authUserId: string) => {
     );
   }
 
-  const studentRegistration = await prisma.studentSemesterRegistration.create({
-    data: {
-      //! here we are posting data into the relation of a table. check the schema and then you will notice that, we are trying to insert the data using the relation of a table instead of using the id(reference fields).
-
-      // as student and semester registration both information is available so we can follow this approach using connect
+  let studentRegistration = await prisma.studentSemesterRegistration.findFirst({
+    where: {
       student: {
-        connect: {
-          id: studentInfo?.id,
-        },
+        id: studentInfo?.id,
       },
       semesterRegistration: {
-        connect: {
-          id: semesterRegistrationInfo?.id,
-        },
+        id: semesterRegistrationInfo?.id,
       },
     },
   });
 
-  return studentRegistration;
+  // if student is not make their registration previously then they can proceed for the registration.
+  if (!studentRegistration) {
+    studentRegistration = await prisma.studentSemesterRegistration.create({
+      data: {
+        //! here we are posting data into the relation of a table. check the schema and then you will notice that, we are trying to insert the data using the relation of a table instead of using the id(reference fields).
+
+        // as student and semester registration both information is available so we can follow this approach using connect
+        student: {
+          connect: {
+            id: studentInfo?.id,
+          },
+        },
+        semesterRegistration: {
+          connect: {
+            id: semesterRegistrationInfo?.id,
+          },
+        },
+      },
+    });
+  }
+
+  return {
+    semesterRegistration: semesterRegistrationInfo,
+    studentSemesterRegistration: studentRegistration,
+  };
 };
 
 export const SemesterRegistrationService = {
