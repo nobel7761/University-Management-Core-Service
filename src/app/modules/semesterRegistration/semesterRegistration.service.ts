@@ -16,7 +16,10 @@ import {
   semesterRegistrationRelationalFields,
   semesterRegistrationRelationalFieldsMapper,
 } from './semesterRegistration.constants';
-import { ISemesterRegistrationFilterRequest } from './semesterRegistration.interfaces';
+import {
+  IEnrollCoursePayload,
+  ISemesterRegistrationFilterRequest,
+} from './semesterRegistration.interfaces';
 
 const createSemesterRegistration = async (
   data: SemesterRegistration
@@ -285,6 +288,109 @@ const startMyRegistration = async (
   };
 };
 
+const enrollIntoCourse = async (
+  authUserId: string,
+  payload: IEnrollCoursePayload
+) => {
+  const student = await prisma.student.findFirst({
+    where: {
+      studentId: authUserId,
+    },
+  });
+
+  if (!student) throw new ApiError(httpStatus.NOT_FOUND, 'Student not found!');
+
+  const semesterRegistration = await prisma.semesterRegistration.findFirst({
+    where: {
+      status: SemesterRegistrationStatus.ONGOING,
+    },
+  });
+
+  if (!semesterRegistration)
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'Semester Registration not found!'
+    );
+
+  const offeredCourse = await prisma.offeredCourse.findFirst({
+    where: {
+      id: payload.offeredCourseId,
+    },
+    include: {
+      course: true,
+    },
+  });
+
+  if (!offeredCourse)
+    throw new ApiError(httpStatus.NOT_FOUND, 'Offered Course does not exists!');
+
+  const offeredCourseSection = await prisma.offeredCourseSection.findFirst({
+    where: {
+      id: payload.offeredCourseSectionId,
+    },
+  });
+
+  if (!offeredCourseSection)
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'Offered Course Section does not exists!'
+    );
+
+  if (
+    offeredCourseSection.maxCapacity &&
+    offeredCourseSection.currentlyEnrolledStudent &&
+    offeredCourseSection.currentlyEnrolledStudent >=
+      offeredCourseSection.maxCapacity
+  ) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Student Capacity is Full!');
+  }
+
+  await prisma.$transaction(async transaction => {
+    await transaction.studentSemesterRegistrationCourse.create({
+      data: {
+        studentId: student?.id,
+        semesterRegistrationId: semesterRegistration?.id,
+        offeredCourseId: payload.offeredCourseId,
+        offeredCourseSectionId: payload.offeredCourseSectionId,
+      },
+    });
+
+    //if any student successfully semester into a course then we need to increase the total number of already student enrolled in that course as we have a property "already endrolled student" in offered course section
+
+    await transaction.offeredCourseSection.update({
+      where: {
+        id: payload.offeredCourseSectionId,
+      },
+      data: {
+        currentlyEnrolledStudent: {
+          increment: 1,
+        },
+      },
+    });
+
+    //update total credits taken field for student after successfully enrolled into a course
+    await transaction.studentSemesterRegistration.updateMany({
+      where: {
+        student: {
+          id: student.id,
+        },
+        semesterRegistration: {
+          id: semesterRegistration.id,
+        },
+      },
+      data: {
+        totalCreditsTaken: {
+          increment: offeredCourse.course.credit,
+        },
+      },
+    });
+  });
+
+  return {
+    message: 'Successfully enrolled into course!!!',
+  };
+};
+
 export const SemesterRegistrationService = {
   createSemesterRegistration,
   getAllSemesterRegistration,
@@ -292,4 +398,5 @@ export const SemesterRegistrationService = {
   updateSingleSemesterRegistration,
   deleteSingleSemesterRegistration,
   startMyRegistration,
+  enrollIntoCourse,
 };
