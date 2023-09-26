@@ -11,12 +11,14 @@ import {
   StudentSemesterRegistrationCourse,
 } from '@prisma/client';
 import httpStatus from 'http-status';
+import { AMOUNT } from '../../../enums/credit';
 import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
 import { asyncForEach } from '../../../shared/utils';
+import { StudentEnrolledCourseMarkService } from '../studentEnrolledCourseMark/studentEnrolledCourseMark.service';
 import {
   SemesterRegistrationSearchAbleFields,
   semesterRegistrationRelationalFields,
@@ -465,12 +467,12 @@ const startNewSemester = async (id: string): Promise<{ message: string }> => {
         },
       });
 
-    asyncForEach(
+    await asyncForEach(
       studentSemesterRegistrations,
       async (studentSemesterRegistration: StudentSemesterRegistration) => {
         if (studentSemesterRegistration.totalCreditsTaken) {
           const totalPaymentAmount =
-            studentSemesterRegistration.totalCreditsTaken * 5000;
+            studentSemesterRegistration.totalCreditsTaken * AMOUNT.CREDIT;
 
           await StudentSemesterPaymentService.createSemesterPayment(
             transaction,
@@ -501,7 +503,7 @@ const startNewSemester = async (id: string): Promise<{ message: string }> => {
             },
           });
 
-        asyncForEach(
+        await asyncForEach(
           studentSemesterRegistrationCourses,
           async (
             item: StudentSemesterRegistrationCourse & {
@@ -524,9 +526,19 @@ const startNewSemester = async (id: string): Promise<{ message: string }> => {
                 academicSemesterId: semesterRegistration.academicSemesterId,
               };
 
-              await transaction.studentEnrolledCourse.create({
-                data: enrolledCourseData,
-              });
+              const studentEnrolledCourseData =
+                await transaction.studentEnrolledCourse.create({
+                  data: enrolledCourseData,
+                });
+
+              await StudentEnrolledCourseMarkService.createStudentEnrolledCourseDefaultMark(
+                transaction,
+                {
+                  studentId: item.studentId,
+                  studentEnrolledCourseId: studentEnrolledCourseData.id,
+                  academicSemesterId: semesterRegistration.academicSemesterId,
+                }
+              );
             }
           }
         );
