@@ -1,3 +1,4 @@
+import { StudentSemesterPaymentService } from './../studentSemesterPayment/studentSemesterPayment.service';
 import { StudentSemesterRegistrationCourseService } from './../studentSemesterRegistrationCourse/studentSemesterRegistrationCourse.service';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
@@ -455,7 +456,7 @@ const startNewSemester = async (id: string): Promise<{ message: string }> => {
     });
 
     const studentSemesterRegistrations =
-      await transaction.studentSemesterRegistration.findMany({
+      await prisma.studentSemesterRegistration.findMany({
         where: {
           semesterRegistration: {
             id,
@@ -467,6 +468,20 @@ const startNewSemester = async (id: string): Promise<{ message: string }> => {
     asyncForEach(
       studentSemesterRegistrations,
       async (studentSemesterRegistration: StudentSemesterRegistration) => {
+        if (studentSemesterRegistration.totalCreditsTaken) {
+          const totalPaymentAmount =
+            studentSemesterRegistration.totalCreditsTaken * 5000;
+
+          await StudentSemesterPaymentService.createSemesterPayment(
+            transaction,
+            {
+              studentId: studentSemesterRegistration.studentId,
+              academicSemesterId: semesterRegistration.academicSemesterId,
+              totalPaymentAmount: totalPaymentAmount,
+            }
+          );
+        }
+
         const studentSemesterRegistrationCourses =
           await transaction.studentSemesterRegistrationCourse.findMany({
             where: {
@@ -493,15 +508,26 @@ const startNewSemester = async (id: string): Promise<{ message: string }> => {
               offeredCourse: OfferedCourse & { course: Course };
             }
           ) => {
-            const enrolledCourseData = {
-              studentId: item.studentId,
-              courseId: item.offeredCourse.courseId,
-              academicSemesterId: semesterRegistration.academicSemesterId,
-            };
+            const isExistEnrolledData =
+              await transaction.studentEnrolledCourse.findFirst({
+                where: {
+                  studentId: item.studentId,
+                  courseId: item.offeredCourse.courseId,
+                  academicSemesterId: semesterRegistration.academicSemesterId,
+                },
+              });
 
-            await transaction.studentEnrolledCourse.create({
-              data: enrolledCourseData,
-            });
+            if (!isExistEnrolledData) {
+              const enrolledCourseData = {
+                studentId: item.studentId,
+                courseId: item.offeredCourse.courseId,
+                academicSemesterId: semesterRegistration.academicSemesterId,
+              };
+
+              await transaction.studentEnrolledCourse.create({
+                data: enrolledCourseData,
+              });
+            }
           }
         );
       }
