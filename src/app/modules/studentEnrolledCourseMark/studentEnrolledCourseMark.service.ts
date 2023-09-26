@@ -14,6 +14,7 @@ import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
 import { IStudentEnrolledCourseMarkFilterRequest } from './studentEnrolledCourseMark.interface';
+import { StudentEnrolledCourseMarkUtils } from './studentEnrolledCourseMark.utils';
 
 const createStudentEnrolledCourseDefaultMark = async (
   transaction: Omit<
@@ -173,21 +174,7 @@ const updateStudentMarks = async (payload: any) => {
     );
   }
 
-  let grade = '';
-
-  if (marks >= 0 && marks <= 39) {
-    grade = 'F';
-  } else if (marks => 40 && marks <= 49) {
-    grade = 'D';
-  } else if (marks => 50 && marks <= 59) {
-    grade = 'C';
-  } else if (marks => 60 && marks <= 69) {
-    grade = 'B';
-  } else if (marks => 70 && marks <= 79) {
-    grade = 'A';
-  } else if (marks => 80 && marks <= 100) {
-    grade = 'A+';
-  }
+  const result = StudentEnrolledCourseMarkUtils.getGradeFromMarks(marks);
 
   const updateStudentMarks = await prisma.studentEnrolledCourseMark.update({
     where: {
@@ -195,13 +182,18 @@ const updateStudentMarks = async (payload: any) => {
     },
     data: {
       marks,
-      grade,
+      grade: result.grade,
     },
   });
+
+  return updateStudentMarks;
 };
+
+const updateFinalMarks = async (payload: any) => {};
 
 export const StudentEnrolledCourseMarkService = {
   createStudentEnrolledCourseDefaultMark,
   updateStudentMarks,
   getAllFromDB,
+  updateFinalMarks,
 };
