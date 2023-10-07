@@ -15,13 +15,22 @@ router.post(
 );
 
 router.get('/', StudentController.getAllStudent);
+
+router.get(
+  '/my-courses',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentController.myCourses
+);
+
 router.get('/:id', StudentController.getSingleStudent);
+
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(StudentValidation.updateStudentZodValidation),
   StudentController.updateSingleStudent
 );
+
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),

@@ -50,7 +50,7 @@ const insertIntoDB = async (
   const result = await prisma.studentEnrolledCourse.create({
     data,
     include: {
-      acacemicSemester: true,
+      academicSemester: true,
       student: true,
       course: true,
     },
@@ -116,7 +116,7 @@ const getAllFromDB = async (
 
   const result = await prisma.studentEnrolledCourse.findMany({
     include: {
-      acacemicSemester: true,
+      academicSemester: true,
       student: true,
       course: true,
     },
@@ -154,7 +154,7 @@ const getByIdFromDB = async (
     include: {
       student: true,
       course: true,
-      acacemicSemester: true,
+      academicSemester: true,
     },
   });
   return result;
@@ -172,7 +172,7 @@ const updateOneInDB = async (
     include: {
       student: true,
       course: true,
-      acacemicSemester: true,
+      academicSemester: true,
     },
   });
   return result;
@@ -186,7 +186,7 @@ const deleteByIdFromDB = async (id: string): Promise<StudentEnrolledCourse> => {
     include: {
       student: true,
       course: true,
-      acacemicSemester: true,
+      academicSemester: true,
     },
   });
   return result;
