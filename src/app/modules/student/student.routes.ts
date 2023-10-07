@@ -22,6 +22,12 @@ router.get(
   StudentController.myCourses
 );
 
+router.get(
+  '/my-course-schedules',
+  auth(ENUM_USER_ROLE.STUDENT),
+  StudentController.getMyCourseSchedules
+);
+
 router.get('/:id', StudentController.getSingleStudent);
 
 router.patch(

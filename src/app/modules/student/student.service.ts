@@ -172,6 +172,73 @@ const myCourses = async (
   return result;
 };
 
+const getMyCourseSchedules = async (
+  authUserId: string,
+  filter: {
+    courseId?: string | undefined;
+    academicSemesterId?: string | undefined;
+  }
+) => {
+  if (!filter.academicSemesterId) {
+    const currentSemester = await prisma.academicSemester.findFirst({
+      where: {
+        isCurrent: true,
+      },
+    });
+
+    filter.academicSemesterId = currentSemester?.id;
+  }
+
+  const studentEnrolledCourses = myCourses(authUserId, filter);
+
+  const studentEnrolledCoursesIds = (await studentEnrolledCourses).map(
+    item => item.courseId
+  );
+
+  const result = await prisma.studentSemesterRegistrationCourse.findMany({
+    where: {
+      student: {
+        studentId: authUserId,
+      },
+      semesterRegistration: {
+        academicSemester: {
+          id: filter.academicSemesterId,
+        },
+      },
+      offeredCourse: {
+        course: {
+          id: {
+            in: studentEnrolledCoursesIds,
+          },
+        },
+      },
+    },
+    include: {
+      offeredCourse: {
+        include: {
+          course: true,
+        },
+      },
+      offeredCourseSection: {
+        include: {
+          offeredCourseClassSchedules: {
+            include: {
+              room: {
+                include: {
+                  building: true,
+                },
+              },
+              faculty: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return result;
+};
+
 export const StudentService = {
   createStudent,
   getAllStudent,
@@ -179,4 +246,5 @@ export const StudentService = {
   updateSingleStudent,
   deleteSingleStudent,
   myCourses,
+  getMyCourseSchedules,
 };
