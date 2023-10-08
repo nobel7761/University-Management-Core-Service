@@ -6,7 +6,11 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import prisma from '../../../shared/prisma';
 import { IPaginationOptions } from './../../../interfaces/pagination';
-import { RoomSearchAbleFields } from './room.constants';
+import {
+  RoomSearchAbleFields,
+  roomRelationalFields,
+  roomRelationalFieldsMapper,
+} from './room.constants';
 import { IRoomFilterRequest } from './room.interfaces';
 
 const createRoom = async (data: Room): Promise<Room> => {
@@ -22,7 +26,7 @@ const getAllRoom = async (
   options: IPaginationOptions
 ): Promise<IGenericResponse<Room[]>> => {
   const { limit, page, skip } = paginationHelpers.calculatePagination(options);
-  const { searchTerm } = filters;
+  const { searchTerm, ...filterData } = filters;
 
   const andConditions = [];
 
@@ -34,6 +38,26 @@ const getAllRoom = async (
           mode: 'insensitive',
         },
       })),
+    });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map(key => {
+        if (roomRelationalFields.includes(key)) {
+          return {
+            [roomRelationalFieldsMapper[key]]: {
+              id: (filterData as any)[key],
+            },
+          };
+        } else {
+          return {
+            [key]: {
+              equals: (filterData as any)[key],
+            },
+          };
+        }
+      }),
     });
   }
 

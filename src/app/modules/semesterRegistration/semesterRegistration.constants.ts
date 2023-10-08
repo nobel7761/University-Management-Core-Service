@@ -1,7 +1,6 @@
 export const SemesterRegistrationFilterAbleFileds = [
   'searchTerm',
   'id',
-  'status',
   'academicSemesterId',
 ];
 

@@ -15,14 +15,18 @@ router.post(
 );
 
 router.get('/', CourseController.getAllCourse);
+
 router.get('/withFaculties', CourseController.getAllCourseWithFaculty);
+
 router.get('/:id', CourseController.getSingleCourse);
+
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(CourseValidation.updateCourseZodValidation),
   CourseController.updateSingleCourse
 );
+
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),

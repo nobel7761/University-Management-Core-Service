@@ -9,6 +9,7 @@ export const studentSemesterPaymentRelationalFields: string[] = [
   'academicSemesterId',
   'studentId',
 ];
+
 export const studentSemesterPaymentRelationalFieldsMapper: {
   [key: string]: string;
 } = {

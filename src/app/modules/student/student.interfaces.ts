@@ -9,3 +9,13 @@ export type IStudentFilterRequest = {
   gender?: string | undefined;
   bloodGroup?: string | undefined;
 };
+
+export type IStudentMyCoursesRequest = {
+  academicSemesterId?: string | undefined;
+  courseId?: string | undefined;
+};
+
+export type IStudentMyCourseSchedulesRequest = {
+  academicSemesterId?: string | undefined;
+  courseId?: string | undefined;
+};

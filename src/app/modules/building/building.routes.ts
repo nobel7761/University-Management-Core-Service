@@ -15,13 +15,16 @@ router.post(
 );
 
 router.get('/', BuildingController.getAllBuilding);
+
 router.get('/:id', BuildingController.getSingleBuilding);
+
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(BuildingValidation.updateBuildingZodValidation),
   BuildingController.updateSingleBuilding
 );
+
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
