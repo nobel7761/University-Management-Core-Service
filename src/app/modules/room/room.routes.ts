@@ -15,13 +15,16 @@ router.post(
 );
 
 router.get('/', RoomController.getAllRoom);
+
 router.get('/:id', RoomController.getSingleRoom);
+
 router.patch(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(RoomValidation.updateRoomZodValidation),
   RoomController.updateSingleRoom
 );
+
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),

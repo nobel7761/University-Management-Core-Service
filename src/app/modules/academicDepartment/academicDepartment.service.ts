@@ -6,7 +6,11 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import prisma from '../../../shared/prisma';
 import { IPaginationOptions } from './../../../interfaces/pagination';
-import { AcademicDepartmentSearchAbleFields } from './academicDepartment.constants';
+import {
+  AcademicDepartmentSearchAbleFields,
+  academicDepartmentRelationalFields,
+  academicDepartmentRelationalFieldsMapper,
+} from './academicDepartment.constants';
 import { IAcademicDepartmentFilterRequest } from './academicDepartment.interfaces';
 
 const createAcademicDepartment = async (
@@ -44,11 +48,21 @@ const getAllAcademicDepartment = async (
 
   if (Object.keys(filtersData).length > 0) {
     andConditions.push({
-      AND: Object.keys(filtersData).map(key => ({
-        [key]: {
-          equals: (filtersData as any)[key],
-        },
-      })),
+      AND: Object.keys(filtersData).map(key => {
+        if (academicDepartmentRelationalFields.includes(key)) {
+          return {
+            [academicDepartmentRelationalFieldsMapper[key]]: {
+              id: (filtersData as any)[key],
+            },
+          };
+        } else {
+          return {
+            [key]: {
+              equals: (filtersData as any)[key],
+            },
+          };
+        }
+      }),
     });
   }
 

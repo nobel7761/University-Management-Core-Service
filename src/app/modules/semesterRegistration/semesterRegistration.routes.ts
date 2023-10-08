@@ -7,11 +7,30 @@ import { SemesterRegistrationValidation } from './semesterRegistration.validatio
 
 const router = express.Router();
 
+router.get(
+  '/get-my-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.getMyRegistrationInfo
+);
+
 router.get('/', SemesterRegistrationController.getAllSemesterRegistration);
+
+router.get(
+  '/get-my-semester-courses',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.getMySemesterRegistrationCourses
+);
 
 router.get(
   '/:id',
   SemesterRegistrationController.getSingleSemesterRegistration
+);
+
+//! studentSemesterRegistration
+router.post(
+  '/start-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.startMyRegistration
 );
 
 router.post(
@@ -36,6 +55,32 @@ router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   SemesterRegistrationController.deleteSingleSemesterRegistration
+);
+
+router.post(
+  '/enroll-into-course',
+  validateRequest(SemesterRegistrationValidation.enrollOrWithdrawCourse),
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.enrollIntoCourse
+);
+
+router.post(
+  '/withdraw-from-course',
+  validateRequest(SemesterRegistrationValidation.enrollOrWithdrawCourse),
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.withdrawFromCourse
+);
+
+router.post(
+  '/confirm-my-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.confirmMyRegistration
+);
+
+router.post(
+  '/:id/start-new-semester',
+  auth(ENUM_USER_ROLE.ADMIN),
+  SemesterRegistrationController.startNewSemester
 );
 
 export const SemesterRegistrationRoutes = router;

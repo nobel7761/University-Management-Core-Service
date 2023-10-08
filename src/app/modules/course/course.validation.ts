@@ -5,6 +5,13 @@ const createCourseZodValidation = z.object({
     title: z.string({ required_error: 'Title is required!' }),
     code: z.string({ required_error: 'Course Code is required!' }),
     credit: z.number({ required_error: 'Course Credit is required!' }),
+    preRequisiteCourses: z
+      .array(
+        z.object({
+          courseId: z.string({}),
+        })
+      )
+      .optional(),
   }),
 });
 
@@ -13,6 +20,14 @@ const updateCourseZodValidation = z.object({
     title: z.string().optional(),
     code: z.string().optional(),
     credit: z.number().optional(),
+    preRequisiteCourses: z
+      .array(
+        z.object({
+          courseId: z.string({}),
+          isDeleted: z.boolean({}).optional(),
+        })
+      )
+      .optional(),
   }),
 });
 

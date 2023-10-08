@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Student } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
@@ -71,10 +72,56 @@ const deleteSingleStudent = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const myCourses = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+
+  const filter = pick(req.query, ['courseId', 'academicSemesterId']);
+
+  const result = await StudentService.myCourses(user.userId, filter);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student Courses data fetched Successfully',
+    data: result,
+  });
+});
+
+const getMyCourseSchedules = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+
+  const filter = pick(req.query, ['courseId', 'academicSemesterId']);
+
+  const result = await StudentService.getMyCourseSchedules(user.userId, filter);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Course Schedules data fetched Successfully',
+    data: result,
+  });
+});
+
+const getMyAcademicInfo = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+
+  const result = await StudentService.getMyAcademicInfo(user.userId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'My Academic Info Data Fetched Successfully',
+    data: result,
+  });
+});
+
 export const StudentController = {
   createStudent,
   getAllStudent,
   getSingleStudent,
   updateSingleStudent,
   deleteSingleStudent,
+  myCourses,
+  getMyCourseSchedules,
+  getMyAcademicInfo,
 };

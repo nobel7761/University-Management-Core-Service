@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SemesterRegistration } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
@@ -91,10 +92,127 @@ const deleteSingleSemesterRegistration = catchAsync(
   }
 );
 
+const startMyRegistration = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  const result = await SemesterRegistrationService.startMyRegistration(
+    user.userId
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student SemesterRegistration started Successfully',
+    data: result,
+  });
+});
+
+const enrollIntoCourse = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+
+  const result = await SemesterRegistrationService.enrollIntoCourse(
+    user.userId,
+    req.body
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student SemesterRegistration course enrolled Successfully',
+    data: result,
+  });
+});
+
+const withdrawFromCourse = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+
+  const result = await SemesterRegistrationService.enrollIntoCourse(
+    user.userId,
+    req.body
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student withdraw from course Successfully',
+    data: result,
+  });
+});
+
+const confirmMyRegistration = catchAsync(
+  async (req: Request, res: Response) => {
+    const user = (req as any).user;
+
+    const result = await SemesterRegistrationService.confirmMyRegistration(
+      user.userId
+    );
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Confirmed your registration successfully',
+      data: result,
+    });
+  }
+);
+
+const getMyRegistrationInfo = catchAsync(
+  async (req: Request, res: Response) => {
+    const user = (req as any).user;
+
+    const result = await SemesterRegistrationService.confirmMyRegistration(
+      user.userId
+    );
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'My registration data fetched!',
+      data: result,
+    });
+  }
+);
+
+const startNewSemester = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await SemesterRegistrationService.startNewSemester(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Semester Started Successfully!',
+    data: result,
+  });
+});
+
+const getMySemesterRegistrationCourses = catchAsync(
+  async (req: Request, res: Response) => {
+    const user = (req as any).user;
+
+    const result =
+      await SemesterRegistrationService.getMySemesterRegistrationCourses(
+        user.userId
+      );
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'My registration courses data fetched!',
+      data: result,
+    });
+  }
+);
+
 export const SemesterRegistrationController = {
   createSemesterRegistration,
   getAllSemesterRegistration,
   getSingleSemesterRegistration,
   updateSingleSemesterRegistration,
   deleteSingleSemesterRegistration,
+  startMyRegistration,
+  enrollIntoCourse,
+  withdrawFromCourse,
+  confirmMyRegistration,
+  getMyRegistrationInfo,
+  startNewSemester,
+  getMySemesterRegistrationCourses,
 };
