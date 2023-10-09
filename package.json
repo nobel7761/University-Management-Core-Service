@@ -46,6 +46,7 @@
     "http-status": "^1.6.2",
     "jsonwebtoken": "^9.0.0",
     "prisma": "^5.2.0",
+    "redis": "^4.6.10",
     "zod": "^3.21.4"
   }
 }
